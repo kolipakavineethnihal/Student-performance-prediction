@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ViharaTech | Academic Insights</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">V</div>
+            <span>viharatech.</span>
+        </div>
+
+        <div class="profile">
+            <div class="profile-avatar">AA</div>
+            <h3>K Vineeth Nihal</h3>
+            <p>Student Developer</p>
+        </div>
+
+        <div class="profile-info">
+
+            <div class="info-item">
+                <span>MY BATCH</span>
+                <strong>June 29th</strong>
+            </div>
+
+            <div class="info-item">
+                <span>EMAIL ADDRESS</span>
+                <strong>kolipakavineethnihal@gmail.com</strong>
+            </div>
+
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="status-dot"></div>
+            <span>Prediction System Online</span>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+                <p class="welcome">YOUR LEARNING JOURNEY STARTS HERE</p>
+                <h2>Academic Insights</h2>
+            </div>
+
+            <div class="top-badge">
+                <span class="live-dot"></span>
+                AI MODEL ACTIVE
+            </div>
+
+        </header>
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-text">
+
+                <span class="tag">SMARTER LEARNING. BETTER RESULTS.</span>
+
+                <h1>
+                    Your Future,<br>
+                    <span>Your Potential.</span>
+                </h1>
+
+                <p>
+                    Discover what your academic future could look like.
+                    Use our machine learning prediction system to
+                    understand your performance based on your study habits.
+                </p>
+
+            </div>
+
+            <div class="hero-graphic">
+
+                <div class="circle circle-one"></div>
+                <div class="circle circle-two"></div>
+
+                <div class="chart-icon">📚</div>
+
+                <div class="floating-card">
+                    ✨ AI Powered
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PREDICTION SECTION -->
+
+        <section class="prediction-section">
+
+            <div class="section-heading">
+
+                <span class="tag">ACADEMIC ANALYSIS / 01</span>
+
+                <h2>Let's Know Your Potential.</h2>
+
+                <p>
+                    Enter your academic details below to generate
+                    your personalized performance prediction.
+                </p>
+
+            </div>
+
+
+            <form action="/predict"
+                  method="POST"
+                  class="prediction-form">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>📖 Hours Studied</label>
+
+                        <input type="number"
+                               name="hours_studied"
+                               min="0"
+                               max="24"
+                               step="any"
+                               placeholder="e.g. 6"
+                               required>
+
+                        <small>Daily hours dedicated to studying</small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>🏆 Previous Scores</label>
+
+                        <input type="number"
+                               name="previous_scores"
+                               min="0"
+                               max="100"
+                               step="any"
+                               placeholder="e.g. 85"
+                               required>
+
+                        <small>Your previous academic performance</small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>🎨 Extracurricular Activities</label>
+
+                        <select name="extracurricular" required>
+
+                            <option value="" disabled selected>
+                                Select an option
+                            </option>
+
+                            <option value="1">Yes, I participate</option>
+
+                            <option value="0">No, not currently</option>
+
+                        </select>
+
+                        <small>Participation in activities outside academics</small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>🌙 Sleep Hours</label>
+
+                        <input type="number"
+                               name="sleep_hours"
+                               min="0"
+                               max="24"
+                               step="any"
+                               placeholder="e.g. 8"
+                               required>
+
+                        <small>Your average daily sleeping hours</small>
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label>📝 Sample Question Papers Practiced</label>
+
+                        <input type="number"
+                               name="sample_papers"
+                               min="0"
+                               step="1"
+                               placeholder="e.g. 5"
+                               required>
+
+                        <small>Number of practice papers completed</small>
+
+                    </div>
+
+                </div>
+
+
+                <button type="submit" class="predict-btn">
+
+                    Predict My Performance
+
+                    <span>→</span>
+
+                </button>
+
+            </form>
+
+
+            <!-- PREDICTION RESULT -->
+
+            {% if prediction is not none %}
+
+            <div class="result-card">
+
+                <div class="result-icon">🎯</div>
+
+                <div>
+
+                    <span class="result-label">
+                        YOUR PREDICTED PERFORMANCE INDEX
+                    </span>
+
+                    <h2>
+                        {{ prediction }}
+                        <small>/ 100</small>
+                    </h2>
+
+                    <p>
+                        Your prediction has been generated successfully!
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- ERROR MESSAGE -->
+
+            {% if error %}
+
+            <div class="error-card">
+                ⚠️ {{ error }}
+            </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <p>
+                © 2026 <strong>ViharaTech</strong>
+                | Student Performance Prediction
+            </p>
+
+            <span>Designed with ❤️ & Machine Learning</span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>
